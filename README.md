@@ -1,50 +1,58 @@
-# React + TypeScript + Vite
+# Bolsus - Sistema de Finanças
+=============================
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introdução
+------------
 
-Currently, two official plugins are available:
+Bolsus é um sistema de finanças desenvolvido em React, TypeScript e Vite. Este projeto visa fornecer uma solução eficiente e escalável para gerenciar finanças pessoais e empresariais.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologias Utilizadas
+-------------------------
 
-## Expanding the ESLint configuration
+* **React**: Biblioteca JavaScript para construir interfaces de usuário
+* **TypeScript**: Linguagem de programação para desenvolvimento de aplicações escaláveis
+* **Vite**: Ferramenta de build e desenvolvimento para aplicações web
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Configuração do Projeto
+-------------------------
 
-- Configure the top-level `parserOptions` property like this:
+### ESLint
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+* O projeto utiliza o ESLint para garantir a qualidade do código
+* A configuração do ESLint está definida no arquivo `eslint.config.js`
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Vite
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+* O projeto também utiliza o Vite para build e desenvolvimento
+* A configuração do Vite está definida no arquivo `vite.config.ts`
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Estrutura do Projeto
+-------------------------
+
+* **src**: Pasta que contém o código fonte da aplicação
+* **public**: Pasta que contém arquivos estáticos, como imagens e ícones
+* **index.html**: Arquivo que define a estrutura básica da página web
+* **main.tsx**: Arquivo que define o ponto de entrada da aplicação
+
+## Como Executar o Projeto
+-------------------------
+
+1. Clone o repositório do projeto
+2. Instale as dependências do projeto executando o comando `npm install` ou `yarn install`
+3. Execute o comando `npm run dev` ou `yarn dev` para iniciar o servidor de desenvolvimento
+4. Acesse o endereço `http://localhost:3000` no seu navegador para visualizar a aplicação
+
+## Contribuição
+--------------
+
+Contribuições são bem-vindas! Se você deseja contribuir com o projeto, por favor, siga as seguintes etapas:
+
+1. Faça um fork do repositório do projeto
+2. Crie uma nova branch para sua contribuição
+3. Faça as alterações necessárias e commit-as
+4. Envie um pull request para o repositório original
+
+## Licença
+---------
+
+Este projeto é licenciado sob a licença MIT. Veja o arquivo `LICENSE` para mais informações.
