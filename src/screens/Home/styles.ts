@@ -5,7 +5,7 @@ export const Container = styled.div`
   padding: 0;
   box-sizing: border-box;
   background-color: #29292C;
-  height: 100vh;
+  height: 100%;
 
 `;
 
@@ -34,8 +34,6 @@ export const HeaderSubtitle = styled.h2`
   margin-top: 10px;
   color: #dcdcdc;
   font-size: 2vh;
- 
-
 `;
 
 export const Body = styled.div`
@@ -50,6 +48,16 @@ export const Logo = styled.div`
   justify-content: center;
   align-items: center;
   margin-left: 20px;
+  
+`;
+
+export const Analytics = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
   
 `;
 
@@ -86,3 +94,4 @@ export const TextInteraction = styled.p`
   margin-top: 20px;
 
 `;
+

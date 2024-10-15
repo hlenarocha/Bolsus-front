@@ -1,20 +1,27 @@
 import * as C from './styles';
+import { Item } from '../../types/Item';
+import { TableItem } from '../TableItem';
 
-export const TableArea = () => {
+type Props = {
+  list: Item[];
+}
+
+export const TableArea = ({list} : Props) => {
   return (
     <C.Table>
       <thead>
-        <tr>
-          <C.TableHeadColumn>Data</C.TableHeadColumn>
-          <C.TableHeadColumn>Categoria</C.TableHeadColumn>
-          <C.TableHeadColumn>Título</C.TableHeadColumn>
-          <C.TableHeadColumn>Valor</C.TableHeadColumn>
-
-
-
+        <tr style={{width: '100%', borderBottom: '3px solid greenyellow', display: 'flex', justifyContent: 'space-around'}}>
+          <C.TableHeadColumn >Data</C.TableHeadColumn>
+          <C.TableHeadColumn >Categoria</C.TableHeadColumn>
+          <C.TableHeadColumn >Título</C.TableHeadColumn>
+          <C.TableHeadColumn >Valor</C.TableHeadColumn>
         </tr>
       </thead>
-      <tbody>
+      <tbody style={{width: '100%', borderBottom: '1px solid #dcdcdc', display: 'flex', justifyContent: 'space-around'}}>
+        {list.map((item, index) => (
+          <TableItem key={index} item={item} />
+        ))}
+        
       </tbody>
     </C.Table>
   );
