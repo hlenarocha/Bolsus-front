@@ -6,6 +6,7 @@ flex-direction: row;
 justify-content: space-around;
 align-items: center;
 width: 100%;
+border-bottom: 1px solid rgba(255,255,255,0.2);
 
 `;
 

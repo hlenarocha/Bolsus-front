@@ -7,12 +7,13 @@ import { getCurrentMonth } from '../../helpers/dateFilter';
 import { filterListByMonth } from '../../helpers/dateFilter';
 import { TableArea } from '../../components/TableArea';
 import { InfoArea } from '../../components/InfoArea';
-import { InputArea } from '../../components/InputArea';
 import { AddArea } from '../../components/AddArea';
 import logoImage from '../../assets/logo-bolsus.png';
 import logoutImage from '../../assets/logout.png'
 import { DataArea } from '../../components/DataArea';
 import Modal from '../../components/Modal';
+import incomeImage from '../../assets/income.png'
+import expenseImage from '../../assets/expense.png'
 
 
 /* 
@@ -36,7 +37,9 @@ export const Home = () => {
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
   const [expensesByCategory, setExpensesByCategory] = useState<ExpensesByCategory>({});
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenModalIncome, setIsOpenModalIncome] = useState(false);
+  const [isOpenModalExpense, setIsOpenModalExpense] = useState(false);
+
 
  
   console.log(currentMonth);
@@ -92,7 +95,24 @@ export const Home = () => {
 
   return(
     <C.Container>
-      <Modal title='Adicionar renda' description='Preencha as informações abaixo e adicione uma entrada financeira manualmente' isOpen={isOpen}/>
+      <Modal 
+      categories={['Selecione uma categoria', 'Salário', 'Renda extra', 'Investimento', 'Venda', 'Prêmio']}
+      imageUrl={incomeImage} 
+      title='Adicionar renda' 
+      description='Preencha as informações abaixo e adicione uma entrada financeira manualmente' 
+      setIsOpen={setIsOpenModalIncome}
+      isOpen={isOpenModalIncome}
+      />
+    
+
+    <Modal 
+      categories={['Selecione uma categoria', 'Alimentação', 'Moradia', 'Vestuário', 'Serviço', 'Lazer', 'Saúde', 'Transporte', 'Educação', 'Pets']}
+      imageUrl={expenseImage} 
+      title='Adicionar despesa' 
+      description='Preencha as informações abaixo e adicione uma saída financeira manualmente' 
+      setIsOpen={setIsOpenModalExpense}
+      isOpen={isOpenModalExpense}
+      />
       <C.Header>
         <C.Logo>
         <C.Image src={logoImage} />
@@ -111,9 +131,11 @@ export const Home = () => {
         currentMonth={currentMonth} 
         income={income} 
         expense={expense} />
-        <AddArea />
+
+        <AddArea setIsOpenExpense={setIsOpenModalExpense} setIsOpenIncome={setIsOpenModalIncome} />
+
         <C.Analytics>
-        <DataArea expensesByCategory={expensesByCategory}/>
+        <DataArea expensesByCategory={expensesByCategory} />
         <TableArea list={filteredList}/>
         </C.Analytics>
       </C.Body>

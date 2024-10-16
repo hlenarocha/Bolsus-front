@@ -14,6 +14,7 @@ export const Container = styled.div`
 `;
 
 export const Box = styled.div`
+position: relative;
 min-width: 500px;
 color: #dcdcdc;
 max-width: 600px;
@@ -44,6 +45,8 @@ export const Description = styled.p`
   text-align: center;
   margin-top: 20px;
   margin-bottom: 40px;
+  width: 400px;
+  line-height: 1.5;
 
 `;
 
@@ -84,4 +87,8 @@ padding: 0px 10px;
 export const Option = styled.option`
 padding: 10px;
 color: whitesmoke;
+`;
+
+export const Image = styled.img`
+object-fit: cover;
 `;
