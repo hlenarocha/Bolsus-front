@@ -53,10 +53,17 @@ export const MonthArea = styled.div`
 
 export const MonthArrow = styled.div`
   cursor: pointer;
-  width: 40px;
+  width: 45px;
+  height: 45px;
   text-align: center;
   font-size: 25px;
-  color: greenyellow;
+  background-color: greenyellow;
+  border-radius: 50%;
+  color: black;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 `;
 
@@ -64,6 +71,7 @@ export const MonthTitle = styled.div`
   flex: 1;
   text-align: center;
   color: #dcdcdc;
+  font-size: 20px;
   font-weight: bold;
 
 `;

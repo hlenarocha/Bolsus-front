@@ -12,6 +12,7 @@ import { AddArea } from '../../components/AddArea';
 import logoImage from '../../assets/logo-bolsus.png';
 import logoutImage from '../../assets/logout.png'
 import { DataArea } from '../../components/DataArea';
+import Modal from '../../components/Modal';
 
 
 /* 
@@ -24,12 +25,18 @@ Hooks = ligam funcionalidades do Reat a componentes funcionais
 
 */
 
+interface ExpensesByCategory {
+  [category: string]: number;
+}
+
 export const Home = () => {
   const [list, setList] = useState(items);
   const [currentMonth, setCurrentMonth] = useState(getCurrentMonth());
   const [filteredList, setFilteredList] = useState<Item[]>([]);
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
+  const [expensesByCategory, setExpensesByCategory] = useState<ExpensesByCategory>({});
+  const [isOpen, setIsOpen] = useState(false);
 
  
   console.log(currentMonth);
@@ -60,12 +67,32 @@ export const Home = () => {
     }
 
     setIncome(incomeCount);
-    setExpense(expenseCount)
+    setExpense(expenseCount);
 
-  }, [filteredList])
+  }, 
+  [filteredList]);
+
+  useEffect(() => {
+    const expensesByCategory: Record<string, number> = {};
+
+    for (let i in filteredList) {
+      const category = filteredList[i].category;
+      const value = filteredList[i].value;
+      if (categories[category].expense) {
+        if (!expensesByCategory[category]) {
+          expensesByCategory[category] = 0;
+        }
+        expensesByCategory[category] += value;
+      }
+    }
+    setExpensesByCategory(expensesByCategory);
+    console.log(expensesByCategory);
+
+  }, [filteredList]);
 
   return(
     <C.Container>
+      <Modal title='Adicionar renda' description='Preencha as informações abaixo e adicione uma entrada financeira manualmente' isOpen={isOpen}/>
       <C.Header>
         <C.Logo>
         <C.Image src={logoImage} />
@@ -85,18 +112,10 @@ export const Home = () => {
         income={income} 
         expense={expense} />
         <AddArea />
-        <InputArea />
         <C.Analytics>
-        <DataArea/>
+        <DataArea expensesByCategory={expensesByCategory}/>
         <TableArea list={filteredList}/>
-
         </C.Analytics>
-        
-        
-        
-
-
-
       </C.Body>
     </C.Container>
   );

@@ -36,11 +36,12 @@ export const HeaderSubtitle = styled.h2`
   font-size: 2vh;
 `;
 
-export const Body = styled.div`
+export const Body = styled.body`
   margin: auto;
   max-width: 900px;
   min-height: 600px;
   padding: 20px;
+  background-color: #29292c;
 `;
 
 export const Logo = styled.div`
@@ -58,7 +59,7 @@ export const Analytics = styled.div`
   width: 100%;
   max-width: 100%;
   overflow: auto;
-  
+  margin-top: -20px;
 `;
 
 export const Image = styled.img`
@@ -72,8 +73,8 @@ export const ImageLogout = styled.img`
   width: 50px;
   height: 50px;
   object-fit: cover;
-  position: absolute;
   right: 5%;
+  position: absolute;
   cursor: pointer;
 
 `;

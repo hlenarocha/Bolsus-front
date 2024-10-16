@@ -7,7 +7,7 @@ background-color: #161616;
   padding: 20px;
   display: flex;
   margin-bottom: 10px;
-  flex-direction: row;
+  flex-direction: column;
   margin-top: 20px;
   height: 300px;
   `;
