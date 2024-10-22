@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 // 3000
-const url = import.meta.env.API_URL;
+const url = import.meta.env.VITE_API_URL;
+
+console.log(url);
 
 const api = axios.create({
   baseURL: url,
@@ -34,4 +36,4 @@ const readClientLogin = async (data: Omit<ClientData, "name">) => {
   }
 }
 
-export default { createClientRegister, readClientLogin };
+export { createClientRegister, readClientLogin };

@@ -1,7 +1,8 @@
 import * as C from './styles';
 import logoImage from '../../assets/logo-bolsus.png';
 import { useState } from 'react';
-import createClientLogin from "../../api/axiosInstance";
+import { createClientRegister } from "../../api/axiosInstance";
+import { useNavigate } from 'react-router-dom';
 
 export const Register = () => {
   const [name, setName] = useState("");
@@ -13,6 +14,8 @@ export const Register = () => {
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
   const [isValidConfirmedPassword, setIsValidConfirmedPassword] = useState(false);
+
+  const navigate = useNavigate();
 
 
   const nameRegex =  /^[a-zA-Z]+$/;
@@ -54,14 +57,21 @@ export const Register = () => {
     }  
   }
 
-  function handleRegister() = async () => {
-    if (isValidName && isValidEmail && isValidPassword && isValidConfirmedPassword) {
-      const data = { name, email, password };
-      const result = await createClientLogin(data);
-      
-    } else {
+  
+  const handleRegister = async () => {
+    try {
+      if (isValidName && isValidEmail && isValidPassword && isValidConfirmedPassword) {
+        const data = { name, email, password };
+        const result = await createClientRegister(data);
+        console.log(result);
 
-    }
+        alert("Usuário criado com sucesso!");
+
+        navigate("/login");
+
+    }} catch (err) {
+      console.log(err);
+    } 
   }
 
   return(
@@ -80,7 +90,7 @@ export const Register = () => {
         <p style={{width: 350, fontSize: 14, marginTop: -10, marginBottom: 10, color: 'white', display: password.match(passwordRegex) || password.length === 0 ? 'none' : 'block'}}><span style={{color: 'red', fontWeight: 'bold'}}>ATENÇÃO!</span> Sua senha deve ter, no mínimo, 8 carateres e conter 1 letra e 1 número pelo menos.</p>
         <C.Input placeholder='Confirme sua senha super secreta' type='password' required onChange={(e) => handleOnChangeConfirmedPassword(e.target.value)} style={{borderColor: confirmedPassword.length === 0 ? "white" : (confirmedPassword === password ? "greenyellow" : "red")}}/>
 
-        <C.Button>CADASTRAR</C.Button>
+        <C.Button onClick={handleRegister}>CADASTRAR</C.Button>
         </C.InputBox>
       </C.Box>
       
