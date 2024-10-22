@@ -23,6 +23,6 @@ export default function PieChartComponent({ expensesByCategory }: Props) {
   };
 
   return (
-    <Pie data={data} />
+    <Pie style={{padding: 10}} data={data} />
   )
 };

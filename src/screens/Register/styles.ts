@@ -73,11 +73,12 @@ export const Input = styled.input`
 width: 80%;
 height: 40px;
 border-radius: 10px;
-border: 1px solid white;
+border: 2px solid white;
 background-color: #29292c;
 padding: 10px;
 color: whitesmoke;
 margin-bottom: 20px;
+outline: none;
 `;
 
 export const Button = styled.button`
@@ -89,8 +90,16 @@ export const Button = styled.button`
   border: 1px solid black;
   width: 80%;
   margin-bottom: 50px;
+  cursor: pointer;
+
+  &:hover {
+  opacity: 0.2;
+  transition: 400ms;
+}
+
 
 `;
+
 
 export const RegisterText = styled.p`
 color: #dcdcdc;

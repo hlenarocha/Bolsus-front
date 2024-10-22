@@ -89,6 +89,14 @@ export const Button = styled.button`
   width: 80%;
   margin-bottom: 50px;
 
+  cursor: pointer;
+
+&:hover {
+opacity: 0.2;
+transition: 400ms;
+}
+
+
 `;
 
 export const RegisterText = styled.p`

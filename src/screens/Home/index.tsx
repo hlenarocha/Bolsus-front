@@ -14,6 +14,7 @@ import { DataArea } from '../../components/DataArea';
 import Modal from '../../components/Modal';
 import incomeImage from '../../assets/income.png'
 import expenseImage from '../../assets/expense.png'
+import { useNavigate, useNavigation } from 'react-router-dom';
 
 
 /* 
@@ -31,6 +32,8 @@ interface ExpensesByCategory {
 }
 
 export const Home = () => {
+  const navigate = useNavigate();
+
   const [list, setList] = useState(items);
   const [currentMonth, setCurrentMonth] = useState(getCurrentMonth());
   const [filteredList, setFilteredList] = useState<Item[]>([]);
@@ -40,9 +43,12 @@ export const Home = () => {
   const [isOpenModalIncome, setIsOpenModalIncome] = useState(false);
   const [isOpenModalExpense, setIsOpenModalExpense] = useState(false);
 
-
+  function handleLogout() {
+    navigate('/login');
+  }
  
-  console.log(currentMonth);
+ 
+
 
   /* useEffect possui 2 parâmetros: 
   - função a ser executada a partir do monitoramento
@@ -120,7 +126,7 @@ export const Home = () => {
         </C.Logo>
         
         <C.HeaderSubtitle>Controle sua vida financeira e encha os <span style={{color: 'greenyellow'}}>Bolsus</span>.</C.HeaderSubtitle>
-        <C.ImageLogout src={logoutImage}></C.ImageLogout>
+        <C.ImageLogout src={logoutImage} onClick={handleLogout}/>
       </C.Header>
       <C.Body>
         <C.Greeting>Olá, <span style={{color: 'greenyellow'}}>[user]</span>!</C.Greeting>
