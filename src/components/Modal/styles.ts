@@ -44,11 +44,23 @@ export const Description = styled.p`
   font-size: 2vh;
   text-align: center;
   margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 15px;
   width: 400px;
   line-height: 1.5;
 
 `;
+
+export const Attention = styled.p`
+  font-size: 1.5vh;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  width: 300px;
+  line-height: 1.5;
+  color: red;
+
+`;
+
 
 export const ConfirmButton = styled.button`
   background-color: greenyellow;
@@ -60,6 +72,11 @@ export const ConfirmButton = styled.button`
   width: 80%;
   margin-bottom: 50px;
   cursor: pointer;
+
+  &:hover {
+  opacity: 0.2;
+  transition: 400ms;
+  }
 `;
 
 export const Input = styled.input`
@@ -71,6 +88,7 @@ background-color: #29292c;
 padding: 10px;
 color: whitesmoke;
 margin-bottom: 20px;
+outline: none;
 `;
 
 export const Select = styled.select`

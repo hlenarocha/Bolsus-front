@@ -14,8 +14,8 @@ import { DataArea } from '../../components/DataArea';
 import Modal from '../../components/Modal';
 import incomeImage from '../../assets/income.png'
 import expenseImage from '../../assets/expense.png'
-import { useNavigate, useNavigation } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
+import { readClientInformation } from '../../api/axiosInstance';
 
 /* 
 useState = hook que permite adicionar um estado local a um componente funcional. Retorna um array
@@ -42,12 +42,30 @@ export const Home = () => {
   const [expensesByCategory, setExpensesByCategory] = useState<ExpensesByCategory>({});
   const [isOpenModalIncome, setIsOpenModalIncome] = useState(false);
   const [isOpenModalExpense, setIsOpenModalExpense] = useState(false);
+  const [clientName, setClientName] = useState("");
 
   function handleLogout() {
     navigate('/login');
   }
  
- 
+  useEffect(() => {
+    const fecthClient = async () => {
+      try {
+        const token = localStorage.getItem('token');
+
+      if (token) {
+        const result = await readClientInformation(token);
+        console.log(result);
+        setClientName(result.name);
+      }
+
+      } catch (err) {
+        console.log(err);
+      }}
+    fecthClient();
+  }, [])
+
+  console.log(clientName);
 
 
   /* useEffect possui 2 parâmetros: 
@@ -108,6 +126,7 @@ export const Home = () => {
       description='Preencha as informações abaixo e adicione uma entrada financeira manualmente' 
       setIsOpen={setIsOpenModalIncome}
       isOpen={isOpenModalIncome}
+      isExpense={false}
       />
     
 
@@ -118,6 +137,7 @@ export const Home = () => {
       description='Preencha as informações abaixo e adicione uma saída financeira manualmente' 
       setIsOpen={setIsOpenModalExpense}
       isOpen={isOpenModalExpense}
+      isExpense={true}
       />
       <C.Header>
         <C.Logo>
@@ -129,7 +149,7 @@ export const Home = () => {
         <C.ImageLogout src={logoutImage} onClick={handleLogout}/>
       </C.Header>
       <C.Body>
-        <C.Greeting>Olá, <span style={{color: 'greenyellow'}}>[user]</span>!</C.Greeting>
+        <C.Greeting>Olá, <span style={{color: 'greenyellow'}}>{clientName}</span>!</C.Greeting>
         <C.TextInteraction>Já tirou um tempo para sua vida financeira hoje?</C.TextInteraction>
 
 

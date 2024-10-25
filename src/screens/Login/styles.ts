@@ -77,6 +77,7 @@ background-color: #29292c;
 padding: 10px;
 color: whitesmoke;
 margin-bottom: 20px;
+outline: none;
 `;
 
 export const Button = styled.button`

@@ -18,6 +18,14 @@ interface ClientData {
   password: string;
 }
 
+interface IncomeExpenseData {
+  categoryId: number,
+  title: string,
+  date: string,
+  value: number
+
+}
+
 const createClientRegister = async (data: ClientData) => {
   try {
     const response = await api.post("/client/register", data);
@@ -36,4 +44,54 @@ const readClientLogin = async (data: Omit<ClientData, "name">) => {
   }
 }
 
-export { createClientRegister, readClientLogin };
+const readClientInformation = async (token: string) => {
+  try {
+    const response = await api.get('/client/information', {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }
+    });
+    return response.data;
+  
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+const createIncomeRegister = async (data: IncomeExpenseData, token: string) => {
+  try {
+    const response = await api.post("/income/register", data, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }});
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    throw err;
+
+  }}
+
+const createExpenseRegister = async (data: IncomeExpenseData, token: string) => {
+  try {
+    const response = await api.post("/expense/register", data, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }
+    });
+
+    return response.data;
+  
+  } catch(err) {
+      console.log(err);
+      throw err;
+    }
+}
+
+export { 
+  createClientRegister, 
+  readClientLogin, 
+  readClientInformation, 
+  createIncomeRegister,
+  createExpenseRegister
+};
