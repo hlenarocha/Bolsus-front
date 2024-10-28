@@ -19,7 +19,7 @@ interface ClientData {
 }
 
 interface IncomeExpenseData {
-  categoryId: number,
+  categoryId: number, // pegar id da categoria
   title: string,
   date: string,
   value: number

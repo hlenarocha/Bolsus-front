@@ -1,6 +1,7 @@
 import * as C from './styles';
 import imageClose from '../../assets/close.png';
 import { useEffect, useState } from 'react';
+import { createExpenseRegister, createIncomeRegister } from '../../api/axiosInstance';
 
 interface ModalProps {
   title: string;
@@ -15,6 +16,7 @@ interface ModalProps {
 export default function Modal({ title, description, setIsOpen, isOpen, imageUrl, categories, isExpense }: ModalProps) {
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("Selecione uma categoria");
+  const [categoryId, setCategoryId] = useState(0);
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(true);
@@ -26,8 +28,11 @@ export default function Modal({ title, description, setIsOpen, isOpen, imageUrl,
   function handleCategory(category: string) {
     if (category !== "Selecione uma categoria") {
       setCategory(category);
+      getCategoryId(category);
     }
   }
+
+  console.log(category);
 
   function handleName(name: string) {
     name = name.replace(/[^a-zA-Z]/g, "");
@@ -45,6 +50,19 @@ export default function Modal({ title, description, setIsOpen, isOpen, imageUrl,
 
   console.log(value);
 
+  function getCategoryId(category: string) {
+    const categoriesArray = ['Salário', 'Renda Extra', "Investimento", 'Venda', 'Prêmio', 'Alimentação', 'Moradia', 'Vestuário', 'Serviço', 'Lazer', 'Saúde', 'Transporte', 'Educação', 'Pets'];
+  
+    const index = categoriesArray.indexOf(category);
+    if (index !== -1) {
+      setCategoryId(index + 1); // Usa o índice encontrado +1 (caso queira IDs começando de 1)
+    } else {
+      setCategoryId(0); // Define 0 ou outro valor padrão se a categoria não for encontrada
+    }
+  }
+  
+
+    console.log("CategoryId: " + categoryId);
 
   function formatCurrency(value: string) {
     if (!value) return "";
@@ -63,17 +81,40 @@ export default function Modal({ title, description, setIsOpen, isOpen, imageUrl,
   const handleButtonConfirm = async() => {
     if (date && category && name && value) {
       console.log(value);
-      
+    
     const cleanValue = value.replace('R$ ', '').replace('.', '').replace(',', '.');
     const floatValue = parseFloat(cleanValue); // Converte a string para float
+  
 
-    console.log(floatValue);
+
+    const data = { categoryId, title: name, date, value: floatValue };
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      alert('Você precisa estar logado para realizar essa ação!');
+      return;
+    }
+
 
       if (isExpense) {
-        //const data = { categoryId, title, date, value }
+        try {
+          const result = await createExpenseRegister(data, token);
+          console.log(result);
 
+        } catch (err) {
+          throw err;
+          console.log("Erro ao criar despesa!");
+        }
       } else {
-        // Lógica para receitas
+        try {
+          const result = await createIncomeRegister(data, token);
+          console.log(result); 
+        } catch (err) {
+          throw err;
+          console.log("Erro ao criar entrada!");
+        }
+        
+
       }
 
       // Limpa os campos após confirmação

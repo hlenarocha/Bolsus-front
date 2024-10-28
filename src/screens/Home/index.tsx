@@ -120,7 +120,7 @@ export const Home = () => {
   return(
     <C.Container>
       <Modal 
-      categories={['Selecione uma categoria', 'Salário', 'Renda extra', 'Investimento', 'Venda', 'Prêmio']}
+      categories={['Selecione uma categoria', 'Salário', 'Renda Extra', 'Investimento', 'Venda', 'Prêmio']}
       imageUrl={incomeImage} 
       title='Adicionar renda' 
       description='Preencha as informações abaixo e adicione uma entrada financeira manualmente' 
