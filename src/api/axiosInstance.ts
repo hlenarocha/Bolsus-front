@@ -88,10 +88,44 @@ const createExpenseRegister = async (data: IncomeExpenseData, token: string) => 
     }
 }
 
+const readExpenseData = async (token: string) => {
+  try {
+    const result = await api.get("/expense/data", {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }
+    });
+
+    return result.data;
+
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+const readIncomeData = async (token: string) => {
+  try {
+    const result = await api.get("/income/data", {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }
+    });
+
+    return result.data;
+
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
 export { 
   createClientRegister, 
   readClientLogin, 
   readClientInformation, 
   createIncomeRegister,
-  createExpenseRegister
+  createExpenseRegister,
+  readExpenseData,
+  readIncomeData
 };
