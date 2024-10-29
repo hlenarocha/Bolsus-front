@@ -9,10 +9,12 @@ export const filterListByMonth = (list: Item[], date: string): Item[] => {
   let newList: Item[] = [];
   let [year, month] = date.split('-');
 
-  for(let i in list) {
+  for(let i = 0; i < list.length; i++) {
+    const itemDate = new Date(list[i].date);
+
     if (
-      list[i].date.getFullYear() === parseInt(year) &&
-      (list[i].date.getMonth() + 1) === parseInt(month)
+      itemDate.getFullYear() === parseInt(year) &&
+      (itemDate.getMonth() + 1) === parseInt(month)
     ) {
       newList.push(list[i]);
     }
@@ -25,9 +27,9 @@ export const filterListByMonth = (list: Item[], date: string): Item[] => {
 export const formatDate = (date: Date): string => {
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
-  let day = date.getDay();
+  let day = date.toISOString().slice(8, 10);
 
-  return `${addZeroToDate(day)}/${addZeroToDate(month)}/${year}`;
+  return `${(day)}/${addZeroToDate(month)}/${year}`;
 
 }
 

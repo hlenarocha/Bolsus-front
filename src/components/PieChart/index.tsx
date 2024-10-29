@@ -13,7 +13,7 @@ export default function PieChartComponent({ expensesByCategory }: Props) {
     labels: Object.keys(expensesByCategory),
     datasets: [
       {
-        label: 'Expenses by Category',
+        label: 'Despesas por Categoria',
         data: Object.values(expensesByCategory),
         backgroundColor: ['#FF69B4', '#33CC33', '#6666CC', '#FFCC00', '#0099CC'],
         borderColor: ['#fff'],

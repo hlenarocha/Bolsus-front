@@ -8,7 +8,7 @@ export const Table = styled.table`
   border-radius: 20px;
   margin-top: 20px;
   font-weight: bold;
-  width: 80%;
+  width: 62.5%;
   display: flex;
   flex-direction: column;
 

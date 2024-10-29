@@ -1,7 +1,9 @@
 import * as C from './styles';
 import imageClose from '../../assets/close.png';
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { createExpenseRegister, createIncomeRegister } from '../../api/axiosInstance';
+import { dataContext } from '../../contexts/datacontext';
+import { Item } from '../../types/Item';
 
 interface ModalProps {
   title: string;
@@ -21,6 +23,8 @@ export default function Modal({ title, description, setIsOpen, isOpen, imageUrl,
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(true);
 
+  const context = useContext(dataContext);
+
   function handleDate(date: string) {
     setDate(date);
   }
@@ -32,45 +36,30 @@ export default function Modal({ title, description, setIsOpen, isOpen, imageUrl,
     }
   }
 
-  console.log(category);
-
   function handleName(name: string) {
     name = name.replace(/[^a-zA-Z]/g, "");
     setName(name);
   }
 
   function handleValue(inputValue: string) {
-    // Remove todos os caracteres que não são números
     const cleanValue = inputValue.replace(/\D/g, '');
-    
-    // Formata o valor como "R$ X.XXX,XX"
     const formattedValue = formatCurrency(cleanValue);
     setValue(formattedValue);
   }
 
-  console.log(value);
-
   function getCategoryId(category: string) {
     const categoriesArray = ['Salário', 'Renda Extra', "Investimento", 'Venda', 'Prêmio', 'Alimentação', 'Moradia', 'Vestuário', 'Serviço', 'Lazer', 'Saúde', 'Transporte', 'Educação', 'Pets'];
-  
     const index = categoriesArray.indexOf(category);
     if (index !== -1) {
-      setCategoryId(index + 1); // Usa o índice encontrado +1 (caso queira IDs começando de 1)
+      setCategoryId(index + 1);
     } else {
-      setCategoryId(0); // Define 0 ou outro valor padrão se a categoria não for encontrada
+      setCategoryId(0);
     }
   }
-  
-
-    console.log("CategoryId: " + categoryId);
 
   function formatCurrency(value: string) {
     if (!value) return "";
-    
-    // Adiciona a vírgula para os centavos
     const formattedValue = (parseInt(value) / 100).toFixed(2).replace('.', ',');
-    
-    // Divide os inteiros em milhares e adiciona o separador de milhar
     return `R$ ${formattedValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
   }
 
@@ -80,54 +69,54 @@ export default function Modal({ title, description, setIsOpen, isOpen, imageUrl,
 
   const handleButtonConfirm = async() => {
     if (date && category && name && value) {
-      console.log(value);
-    
-    const cleanValue = value.replace('R$ ', '').replace('.', '').replace(',', '.');
-    const floatValue = parseFloat(cleanValue); // Converte a string para float
-  
-
-
-    const data = { categoryId, title: name, date, value: floatValue };
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      alert('Você precisa estar logado para realizar essa ação!');
-      return;
-    }
-
-
-      if (isExpense) {
-        try {
-          const result = await createExpenseRegister(data, token);
-          console.log(result);
-
-        } catch (err) {
-          throw err;
-          console.log("Erro ao criar despesa!");
-        }
-      } else {
-        try {
-          const result = await createIncomeRegister(data, token);
-          console.log(result); 
-        } catch (err) {
-          throw err;
-          console.log("Erro ao criar entrada!");
-        }
-        
-
+      const cleanValue = value.replace('R$ ', '').replace('.', '').replace(',', '.');
+      const floatValue = parseFloat(cleanValue);
+      
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Você precisa estar logado para realizar essa ação!');
+        return;
       }
 
-      // Limpa os campos após confirmação
-      setDate("");
-      setCategory("Selecione uma categoria");
-      setName("");
-      setValue("");
-      setIsValid(true);
-      setIsOpen(false);
+      const newItem: Item = {
+        id: Math.random(),
+        clientId: 1,
+        category: { 
+          id: categoryId, 
+          title: category, 
+          color: 'cor-exemplo',
+          isExpense 
+        },
+        categoryId,
+        title: name,
+        date,
+        value: floatValue,
+      };
+
+      try {
+        if (isExpense) {
+          await createExpenseRegister({ categoryId, title: name, date, value: floatValue }, token);
+        } else {
+          await createIncomeRegister({ categoryId, title: name, date, value: floatValue }, token);
+        }
+
+        if (context?.setList) {
+          context.setList((prevList) => [...prevList, newItem]);
+        }
+
+        setDate("");
+        setCategory("Selecione uma categoria");
+        setName("");
+        setValue("");
+        setIsValid(true);
+        setIsOpen(false);
+      } catch (err) {
+        console.log("Erro ao criar registro:", err);
+      }
     } else {
       setIsValid(false);
     }
-  }
+  };
 
   return (
     <C.Container style={{ display: isOpen ? 'flex' : 'none' }}>

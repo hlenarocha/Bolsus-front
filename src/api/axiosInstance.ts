@@ -52,7 +52,7 @@ const readClientInformation = async (token: string) => {
       }
     });
     return response.data;
-  
+
   } catch (err) {
     console.log(err);
     throw err;
@@ -64,13 +64,15 @@ const createIncomeRegister = async (data: IncomeExpenseData, token: string) => {
     const response = await api.post("/income/register", data, {
       headers: {
         "Authorization": `Bearer ${token}`,
-      }});
+      }
+    });
     return response.data;
   } catch (err) {
     console.log(err);
     throw err;
 
-  }}
+  }
+}
 
 const createExpenseRegister = async (data: IncomeExpenseData, token: string) => {
   try {
@@ -81,11 +83,11 @@ const createExpenseRegister = async (data: IncomeExpenseData, token: string) => 
     });
 
     return response.data;
-  
-  } catch(err) {
-      console.log(err);
-      throw err;
-    }
+
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
 const readExpenseData = async (token: string) => {
@@ -120,12 +122,46 @@ const readIncomeData = async (token: string) => {
   }
 }
 
-export { 
-  createClientRegister, 
-  readClientLogin, 
-  readClientInformation, 
+const deleteIncomeData = async (id: number, token: string) => {
+  try {
+    const response = await api.delete(`/income/delete/${id}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }
+    });
+
+    return response.data;
+
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+const deleteExpenseData = async (id: number, token: string) => {
+  try {
+    const response = await api.delete(`/expense/delete/${id}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }
+    });
+
+    return response.data;
+
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+export {
+  createClientRegister,
+  readClientLogin,
+  readClientInformation,
   createIncomeRegister,
   createExpenseRegister,
   readExpenseData,
-  readIncomeData
+  readIncomeData,
+  deleteIncomeData, 
+  deleteExpenseData
 };

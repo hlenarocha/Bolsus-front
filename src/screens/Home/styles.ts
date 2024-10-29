@@ -77,6 +77,10 @@ export const ImageLogout = styled.img`
   position: absolute;
   cursor: pointer;
 
+  &:hover {
+    opacity: 0.5;
+  }
+
 `;
 
 export const Greeting = styled.p`
