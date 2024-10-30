@@ -11,7 +11,7 @@ export const Table = styled.table`
   width: 62.5%;
   display: flex;
   flex-direction: column;
-
+  padding-right: 20px;
   
 `;
 
@@ -20,4 +20,5 @@ export const TableHeadColumn = styled.th`
   margin-bottom: 20px;
   color: #dcdcdc;
   font-size: 20px;
+  
 `; 

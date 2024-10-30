@@ -4,6 +4,7 @@ import * as C from './styles';
 import { Item } from '../../types/Item';
 import { formatDate } from '../../helpers/dateFilter';
 import deleteIcon from '../../assets/delete.png';
+import { deleteExpenseData, deleteIncomeData } from '../../api/axiosInstance';
 
 type Props = {
   item: Item;
@@ -11,6 +12,30 @@ type Props = {
 
 export const TableItem = ({item}: Props) => {
   const formattedValue = item.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'});
+
+  const handleDeleteItem = async () => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return alert('Você precisa estar logado para deletar um item!');
+    }
+
+    try {
+      if (item.category.isExpense) {
+        
+      await deleteExpenseData(item.id, token);
+  
+      } else {
+        await deleteIncomeData(item.id, token);
+      }
+    }
+      catch (err) {
+        console.log(err);
+      }
+
+    }
+    
+  
 
   return (
     <C.TableLine>
@@ -26,8 +51,8 @@ export const TableItem = ({item}: Props) => {
           {formattedValue}
         </C.Value>
       </C.TableColumn>
-      
-      <C.DeleteIcon src={deleteIcon}></C.DeleteIcon>        
+
+      <C.DeleteIcon onClick={handleDeleteItem} src={deleteIcon}></C.DeleteIcon>        
       
     </C.TableLine>
   );

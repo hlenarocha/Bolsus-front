@@ -84,7 +84,7 @@ export default function Modal({ title, description, setIsOpen, isOpen, imageUrl,
         category: { 
           id: categoryId, 
           title: category, 
-          color: 'cor-exemplo',
+          color: category,
           isExpense 
         },
         categoryId,
