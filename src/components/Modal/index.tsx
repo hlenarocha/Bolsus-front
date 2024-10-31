@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { createExpenseRegister, createIncomeRegister } from '../../api/axiosInstance';
 import { dataContext } from '../../contexts/datacontext';
 import { Item } from '../../types/Item';
-
+import { readExpenseData, readIncomeData } from '../../api/axiosInstance';
 interface ModalProps {
   title: string;
   description: string;
@@ -92,6 +92,7 @@ export default function Modal({ title, description, setIsOpen, isOpen, imageUrl,
         date,
         value: floatValue,
       };
+      
 
       try {
         if (isExpense) {
@@ -100,9 +101,15 @@ export default function Modal({ title, description, setIsOpen, isOpen, imageUrl,
           await createIncomeRegister({ categoryId, title: name, date, value: floatValue }, token);
         }
 
-        if (context?.setList) {
-          context.setList((prevList) => [...prevList, newItem]);
-        }
+        const expenses = await readExpenseData(token);
+        const incomes = await readIncomeData(token);
+
+        const newList = [
+          ...expenses,
+          ...incomes
+        ];
+
+        context?.setList(newList);
 
         setDate("");
         setCategory("Selecione uma categoria");

@@ -8,7 +8,7 @@ interface DataContextType {
 
 export const dataContext = React.createContext<DataContextType | undefined>(undefined);
 
-export const dataProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
+export const DataProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
   const [list, setList] = React.useState<Item[]>([]);
   return (
     <dataContext.Provider value={{ list, setList }}>

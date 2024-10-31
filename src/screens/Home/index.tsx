@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import * as C from './styles';
 import { getCurrentMonth, filterListByMonth } from '../../helpers/dateFilter';
 import { TableArea } from '../../components/TableArea';
@@ -12,7 +12,7 @@ import Modal from '../../components/Modal';
 import incomeImage from '../../assets/income.png';
 import expenseImage from '../../assets/expense.png';
 import { DataArea } from '../../components/DataArea';
-import { Item } from '../../types/Item';
+import { dataContext } from '../../contexts/datacontext';
 
 interface ExpensesByCategory {
   [category: string]: number;
@@ -21,7 +21,8 @@ interface ExpensesByCategory {
 export const Home = () => {
   const navigate = useNavigate();
   
-  const [list, setList] = useState<Item[]>([]);
+ // const [list, context.setList] = useState<Item[]>([]);
+  const context = useContext(dataContext);
   const [currentMonth, setCurrentMonth] = useState(getCurrentMonth());
   const [filteredList, setFilteredList] = useState<any[]>([]);
   const [income, setIncome] = useState(0);
@@ -63,7 +64,7 @@ export const Home = () => {
             ...incomes
           ];
 
-          setList(combinedList);
+          context?.setList(combinedList);
         } catch (err) {
           console.log("Erro ao buscar dados: " + err);
         }
@@ -74,7 +75,8 @@ export const Home = () => {
 
   useEffect(() => {
     // Filtra a lista conforme o mês atual
-    const filtered = filterListByMonth(list, currentMonth);
+    if (context) {
+      const filtered = filterListByMonth(context.list, currentMonth);
     setFilteredList(filtered);
 
     let incomeCount = 0;
@@ -93,7 +95,11 @@ export const Home = () => {
     setIncome(incomeCount);
     setExpense(expenseCount);
     setExpensesByCategory(expensesByCategory);
-  }, [list, currentMonth]);
+      
+    }
+
+    
+  }, [context?.list, currentMonth]);
 
   return (
     <C.Container>
