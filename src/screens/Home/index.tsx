@@ -46,6 +46,8 @@ export const Home = () => {
         } catch (err) {
           console.log(err);
         }
+      } else {
+        handleLogout();
       }
     };
     fetchClient();
