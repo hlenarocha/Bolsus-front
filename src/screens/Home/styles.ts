@@ -6,7 +6,7 @@ export const Container = styled.div`
   box-sizing: border-box;
   background-color: #29292C;
   height: 100%;
-
+  padding-bottom: 100px;
 `;
 
 export const Header = styled.div`

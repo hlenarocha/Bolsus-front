@@ -6,8 +6,9 @@ import { formatDate } from '../../helpers/dateFilter';
 import deleteIcon from '../../assets/delete.png';
 import { deleteExpenseData, deleteIncomeData } from '../../api/axiosInstance';
 import { dataContext } from '../../contexts/datacontext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { readExpenseData, readIncomeData } from '../../api/axiosInstance';
+import ModalAreYouSure from '../ModalAreYouSure';
 
 type Props = {
   item: Item;
@@ -16,6 +17,8 @@ type Props = {
 
 
 export const TableItem = ({item}: Props) => {
+  const [isOpenModalSure, setIsOpenModalSure] = useState(false);
+
   const context = useContext(dataContext);
 
   const formattedValue = item.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'});
@@ -53,10 +56,16 @@ export const TableItem = ({item}: Props) => {
       }
 
     }
+
+    function handleModalSure() {
+      setIsOpenModalSure(true);
+    }
     
   
 
   return (
+    <div>
+      <ModalAreYouSure isOpen={isOpenModalSure} setIsOpen={setIsOpenModalSure} handleDelete={handleDeleteItem}></ModalAreYouSure>
     <C.TableLine>
       <C.TableColumn>{formatDate(new Date(item.date))}</C.TableColumn>
       <C.TableColumn>
@@ -71,8 +80,9 @@ export const TableItem = ({item}: Props) => {
         </C.Value>
       </C.TableColumn>
 
-      <C.DeleteIcon onClick={handleDeleteItem} src={deleteIcon}></C.DeleteIcon>        
+      <C.DeleteIcon onClick={handleModalSure} src={deleteIcon}></C.DeleteIcon>        
       
     </C.TableLine>
+    </div>
   );
 }

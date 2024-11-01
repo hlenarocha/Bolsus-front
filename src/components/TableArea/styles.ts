@@ -12,7 +12,9 @@ export const Table = styled.table`
   display: flex;
   flex-direction: column;
   padding-right: 20px;
-  
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 export const TableHeadColumn = styled.th`

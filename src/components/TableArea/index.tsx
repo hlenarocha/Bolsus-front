@@ -9,7 +9,7 @@ type Props = {
 export const TableArea = ({list} : Props) => {
   return (
     <C.Table>
-      <thead style={{display: 'flex', justifyContent: 'center', marginLeft: 10}}>
+      <thead style={{display: 'flex', position: 'sticky', justifyContent: 'center', marginLeft: 10}}>
         <tr style={{width: '100%', borderBottom: '3px solid greenyellow', display: 'flex', justifyContent: 'space-around'}}>
           <C.TableHeadColumn >Data</C.TableHeadColumn>
           <C.TableHeadColumn >Categoria</C.TableHeadColumn>

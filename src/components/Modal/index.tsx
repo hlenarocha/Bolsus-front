@@ -7,7 +7,7 @@ import {
 } from "../../api/axiosInstance";
 import { dataContext } from "../../contexts/datacontext";
 import { readExpenseData, readIncomeData } from "../../api/axiosInstance";
-import ModalSuccess from "../../ModalSuccess";
+import ModalSuccess from "../ModalSuccess";
 interface ModalProps {
   title: string;
   description: string;

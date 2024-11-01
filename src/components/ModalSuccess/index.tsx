@@ -1,5 +1,5 @@
 import * as C from './styles';
-import imageCheck from '../assets/check-green.png';
+import imageCheck from '../../assets/check-green.png';
 
 interface ModalProps {
   isOpen: boolean;
