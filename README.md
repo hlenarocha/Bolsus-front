@@ -1,5 +1,4 @@
 # Bolsus - Sistema de Finanças
-=============================
 
 ## Introdução
 ------------
